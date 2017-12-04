@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -7,11 +8,12 @@ namespace AdventOfCode.solutions
     public static class Solution_3
     {
         enum Direction { Right, Up, Left, Down }
+        static List<Node> nodeList = new List<Node>();
+        static int firstValueLargerThanInput = 0;
+        static int input = 361527;
 
         public static string getResult()
         {
-            var input = 361527;
-
             Direction currentDirection = Direction.Right;
 
             Stopwatch sw = new Stopwatch();
@@ -21,6 +23,8 @@ namespace AdventOfCode.solutions
             var yPos = 0;
             var step = 1;
             var current = 1;
+            
+            nodeList.Add(new Node(xPos, yPos, current));
 
             // Loop to target
             while (current < input)
@@ -39,7 +43,7 @@ namespace AdventOfCode.solutions
 
             sw.Stop();
 
-            return $"Part 1: {distancePart_1}{Environment.NewLine}Part 2: {Environment.NewLine}Completion time: {sw.ElapsedMilliseconds}ms";
+            return $"Part 1: {distancePart_1}{Environment.NewLine}Part 2: {firstValueLargerThanInput}{Environment.NewLine}Completion time: {sw.ElapsedMilliseconds}ms";
         }
 
         private static void doCurrentDirection(ref int xPos, ref int yPos, ref Direction currentDirection, ref int current, int step, int input)
@@ -49,6 +53,7 @@ namespace AdventOfCode.solutions
                 current++;
 
                 addXorY(ref xPos, ref yPos, currentDirection);
+                nodeList.Add(new Node(xPos, yPos, getNearbySum(xPos, yPos)));
                 if (current == input)
                 {
                     return;
@@ -56,6 +61,30 @@ namespace AdventOfCode.solutions
             }
 
             currentDirection = getNextDirection(currentDirection);
+        }
+
+        private static int getNearbySum(int xPos, int yPos)
+        {
+            if (firstValueLargerThanInput == 0)
+            {
+                var nearbyNodes = from n in nodeList
+                                  where
+                                    (n.xPos >= (xPos - 1) && n.xPos <= (xPos + 1))
+                                    &&
+                                    (n.yPos >= (yPos - 1) && n.yPos <= (yPos + 1))
+                                  select
+                                  n;
+                var sum = nearbyNodes.Sum(x => x.value);
+
+
+                if (sum > input && firstValueLargerThanInput == 0)
+                {
+                    firstValueLargerThanInput = sum;
+                }
+
+                return sum;
+            }
+            return 0;
         }
 
         private static void addXorY(ref int xPos, ref int yPos, Direction currentDirection)
@@ -96,6 +125,20 @@ namespace AdventOfCode.solutions
             }
 
             return currentDirection;
+        }
+    }
+
+    class Node
+    {
+        public int xPos { get; set; }
+        public int yPos { get; set; }
+        public int value { get; set; }
+
+        public Node(int x, int y, int value)
+        {
+            this.xPos = x;
+            this.yPos = y;
+            this.value = value;
         }
     }
 }
