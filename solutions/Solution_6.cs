@@ -11,7 +11,7 @@ namespace AdventOfCode.solutions
 
         public static string getResult()
         {
-            var input = @"4	10	4	1	8	4	9	14	5	1	14	15	0	15	3	5";
+            var input = Helpers.getInputFromFile("day6.txt");
             var cycles = 0;
 
             Debug.Assert(getSolution("0	2	7	0", ref cycles) == 5);
