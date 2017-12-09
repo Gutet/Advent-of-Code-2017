@@ -49,6 +49,7 @@
     <Compile Include="solutions\Solution_6.cs" />
     <Compile Include="solutions\Solution_7.cs" />
     <Compile Include="solutions\Solution_8.cs" />
+    <Compile Include="solutions\Solution_9.cs" />
     <Compile Include="solutions\Solution_Template.cs" />
     <Compile Include="solutions\Solution_2.cs" />
     <Compile Include="solutions\Solution_1.cs" />
@@ -73,6 +74,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="input\day1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="input\day9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="input\day8.txt">
