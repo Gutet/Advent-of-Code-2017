@@ -74,7 +74,10 @@ namespace AdventOfCode.solutions
 
         private static void setConnectedList(List<House> programList, int startGroup)
         {
-            connectedHouses.Add(startGroup);
+            if (connectedHouses.Contains(startGroup) == false)
+            {
+                connectedHouses.Add(startGroup);
+            }
 
             var thisHouse = programList.Where(x => x.Id == startGroup).FirstOrDefault();
 
