@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AdventOfCode.solutions
 {
@@ -30,7 +32,7 @@ namespace AdventOfCode.solutions
             fireWall = getFireWallFromInput(input);
             var solutionPart_1 = getTripSeverity(fireWall);
             fireWall = getFireWallFromInput(input);
-            var solutionPart_2 = getMinDelay(fireWall, 3897600);
+            var solutionPart_2 = getMinDelay(fireWall, 0);
 
             sw.Stop();
 
@@ -54,7 +56,7 @@ namespace AdventOfCode.solutions
                 delay++;
                 fireWall = moveScanners(fireWall);
 
-                if (getTripSeverity(fireWall) == 0)
+                if (getTripSeverity(fireWall, true) == 0)
                 {
                     break;
                 }
@@ -68,16 +70,11 @@ namespace AdventOfCode.solutions
             return delay;
         }
 
-        private static int getTripSeverity(List<FireWallNode> fireWallIn)
+        private static int getTripSeverity(List<FireWallNode> fireWallIn, bool forceBreak = false)
         {
             var severity = 0;
-            var gotCaught = false;
-
-            List<FireWallNode> fireWall = new List<FireWallNode>();
-            foreach (var item in fireWallIn)
-            {
-                fireWall.Add(new FireWallNode(item.Nodes, item.Position, item.DirectionUp));
-            }
+            
+            List<FireWallNode> fireWall = fireWallIn.ConvertAll(x => new FireWallNode(x.Nodes, x.Position, x.DirectionUp));
 
             for (int i = 0; i < fireWall.Count; i++)
             {
@@ -85,14 +82,17 @@ namespace AdventOfCode.solutions
                 if (fireWall[i].Position == 1)
                 {
                     severity += i * fireWall[i].Nodes;
-                    gotCaught = true;
+                    if (forceBreak)
+                    {
+                        return 1;
+                    }
                 }
 
                 // Move scanners
                 fireWall = moveScanners(fireWall);
             }
 
-            return (severity == 0 && gotCaught) ? 1 : severity;
+            return severity;
         }
 
         private static List<FireWallNode> moveScanners(List<FireWallNode> fireWall)
