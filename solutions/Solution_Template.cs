@@ -14,10 +14,12 @@ namespace AdventOfCode.solutions
             sw.Start();
 
             // Solution goes here
+            var solutionPart_1 = 1;
+            var solutionPart_2 = 2;
 
             sw.Stop();
 
-            return $"Part 1: {Environment.NewLine}Part 2: {Environment.NewLine}Completion time: {sw.ElapsedMilliseconds}ms";
+            return $"Part 1: {solutionPart_1}{Environment.NewLine}Part 2: {solutionPart_2}{Environment.NewLine}Completion time: {sw.ElapsedMilliseconds}ms";
         }
     }
 }
