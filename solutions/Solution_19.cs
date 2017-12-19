@@ -10,7 +10,6 @@ namespace AdventOfCode.solutions
         public static string getResult()
         {
             var input = Helpers.getInputFromFile("day19.txt");
-
             int steps = 0;
 
             Debug.Assert(getPath(@"    |         
@@ -19,6 +18,7 @@ namespace AdventOfCode.solutions
 F---|----E|--+
     |  |  |  D
     +B-+  +--+", ref steps) == "ABCDEF");
+            Debug.Assert(steps == 38);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -43,10 +43,9 @@ F---|----E|--+
             direction d = direction.Down;
 
             var path = "";
-            var xPos = 0;
+            var xPos = getStartingPosition(mapArray);
             var yPos = 0;
-
-            xPos = getStartingPosition(mapArray);
+            
             if (xPos == -1)
             {
                 throw new Exception("Invalid starting position");
@@ -54,11 +53,7 @@ F---|----E|--+
 
             while (true)
             {
-                if (outsideBounds(mapArray, xPos, yPos))
-                {
-                    break;
-                }
-                if (mapArray[yPos, xPos] == ' ')
+                if (outsideBounds(mapArray, xPos, yPos) || mapArray[yPos, xPos] == ' ')
                 {
                     break;
                 }
@@ -66,11 +61,10 @@ F---|----E|--+
                 switch (mapArray[yPos, xPos])
                 {
                     case '|':
+                    case '-':
                         break;
                     case '+':
                         d = changeDirection(d, mapArray, xPos, yPos);
-                        break;
-                    case '-':
                         break;
                     default:
                         path += mapArray[yPos, xPos].ToString();
