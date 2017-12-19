@@ -76,7 +76,7 @@ F---|----E|--+
                         path += mapArray[yPos, xPos].ToString();
                         break;
                 }
-                getDirection(d, ref xPos, ref yPos);
+                getNewPosition(d, ref xPos, ref yPos);
                 steps++;
             }
 
@@ -114,7 +114,7 @@ F---|----E|--+
             }            
         }
 
-        private static void getDirection(direction d, ref int xPos, ref int yPos)
+        private static void getNewPosition(direction d, ref int xPos, ref int yPos)
         {
             switch (d)
             {
@@ -131,11 +131,6 @@ F---|----E|--+
                     xPos--;
                     break;
             }
-        }
-
-        private static int getNextPos(direction d, int pos)
-        {
-            return (d == direction.Left || d == direction.Up) ? -1 : 1;
         }
 
         private static int getStartingPosition(char[,] mapArray)
