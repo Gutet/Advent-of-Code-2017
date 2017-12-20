@@ -49,12 +49,10 @@ p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>", 500);
                 }
 
                 // Mark Duplicates
-                var duplicates = particleList
+                foreach (var d in particleList
                     .Where(x => x.IsDeleted == false)
                     .GroupBy(p => p.Position)
-                    .Where(g => g.Count() > 1);
-
-                foreach (var d in duplicates)
+                    .Where(g => g.Count() > 1))
                 {
                     foreach (var particle in d)
                     {
@@ -117,23 +115,19 @@ p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>", 500);
 
             public void MoveParticles()
             {
-                Tuple<int, int, int> tempTuple =
+                this.Velocity =
                     new Tuple<int, int, int>(
                         this.Velocity.Item1 + this.Acceleration.Item1,
                         this.Velocity.Item2 + this.Acceleration.Item2,
                         this.Velocity.Item3 + this.Acceleration.Item3
                         );
 
-                this.Velocity = tempTuple;
-
-                tempTuple =
+                this.Position =
                     new Tuple<int, int, int>(
                         this.Position.Item1 + this.Velocity.Item1,
                         this.Position.Item2 + this.Velocity.Item2,
                         this.Position.Item3 + this.Velocity.Item3
                         );
-
-                this.Position = tempTuple;
             }
         }
     }
