@@ -8,7 +8,7 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            int[] solvedDays = new int[] { 19 };
+            int[] solvedDays = new int[] { 20 };
 
             foreach (var day in solvedDays)
             {
