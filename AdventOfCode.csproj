@@ -45,6 +45,7 @@
     <Compile Include="helpers\Helpers.cs" />
     <Compile Include="solutions\Solution_11.cs" />
     <Compile Include="solutions\Solution_13.cs" />
+    <Compile Include="solutions\Solution_23.cs" />
     <Compile Include="solutions\Solution_18.cs" />
     <Compile Include="solutions\Solution_17.cs" />
     <Compile Include="solutions\Solution_22.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="solutions\Solution_15.cs" />
     <Compile Include="solutions\Solution_16.cs" />
     <Compile Include="solutions\Solution_19.cs" />
+    <Compile Include="solutions\Solution_24.cs" />
+    <Compile Include="solutions\Solution_25.cs" />
     <Compile Include="solutions\Solution_Template.cs" />
     <Compile Include="solutions\Solution_2.cs" />
     <Compile Include="solutions\Solution_1.cs" />
@@ -74,6 +77,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="input\day23.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="input\day22.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
